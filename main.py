@@ -16,24 +16,24 @@ def get_birthdays_per_week(users):
             user_birthday = user.get('birthday')
             if today <= user_birthday.replace(year=today.year) < end_of_week:
                 day_of_week = (user_birthday.replace(year=today.year).strftime('%A'))
-                if day_of_week == 'Saturday' or day_of_week == 'Sunday':
+                if day_of_week in ('Sunday', 'Saturday'):
                     birthday_dict['Monday'].append(user['name'])
-                elif day_of_week != 'Saturday' or day_of_week != 'Sunday':
+                elif day_of_week not in ('Sunday', 'Saturday'):
                     birthday_dict[day_of_week].append(user.get('name'))
             elif today > user_birthday.replace(year=today.year):
                 if user_birthday.month == 1:
                     if today <= user_birthday.replace(year=(today.year+1)) < end_of_week:
                         day_of_week = (user_birthday.replace(year=(today.year+1)).strftime('%A'))
-                        if day_of_week == 'Saturday' or day_of_week == 'Sunday':
+                        if day_of_week in ('Sunday', 'Saturday'):
                             birthday_dict['Monday'].append(user['name'])
-                        elif day_of_week != 'Saturday' or day_of_week != 'Sunday':
+                        elif day_of_week not in ('Sunday', 'Saturday'):
                             birthday_dict[day_of_week].append(user.get('name'))
         for day, names  in birthday_dict.items():
             if names:
                 another_dict[day] = names
         return another_dict
     else:
-        return dict()
+        return {}
 
 if __name__ == "__main__":
     users = [
